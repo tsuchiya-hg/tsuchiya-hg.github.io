@@ -1,66 +1,49 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>出席状況</title>
+    <title>Password</title>
     <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="sha256.js"></script>
 </head>
 <body>
-    <h1>社員出席状況</h1>
-    <div id="loading" class="loading">データを読み込み中...</div>
-    <div id="attendance-data"></div>
-    
+    <form id="form">
+    <p id="message">Please enter your password.</p>
+    <input type="password" placeholder="password" id="password">
+    </form>
     <script>
-        const apiUrl = "https://f0drhcoa22.execute-api.ap-northeast-1.amazonaws.com/prod/attendance";
-    
-        async function fetchAttendanceData() {
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error("データの取得に失敗しました");
-                }
-    
-                const data = await response.json();
-                document.getElementById("loading").style.display = 'none';
-    
-                const now = Date.now() / 1000;
-                const table = document.createElement("table");
-                table.className = "attendance-table";
-    
-                const headerRow = document.createElement("tr");
-                headerRow.innerHTML = `
-                    <th>社員ID</th>
-                    <th>名前</th>
-                    <th>出席状況</th>
-                `;
-                table.appendChild(headerRow);
-    
-                data.forEach(item => {
-                    if (item.ttl && now > item.ttl) {
-                        item.status = "未出社";
-                    }
-    
-                    const statusClass = item.status === "出勤" ? "status-on" : "status-off";
-    
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${item.user_id}</td>
-                        <td>${item.name}</td>
-                        <td class="${statusClass}">${item.status}</td>
-                    `;
-                    table.appendChild(row);
-                });
-    
-                document.getElementById("attendance-data").appendChild(table);
-            } catch (error) {
-                document.getElementById("loading").style.display = 'none';
-                document.getElementById("attendance-data").innerHTML = `<p class="error">${error.message}</p>`;
-            }
+    function hash(text) {
+        const sha = new jsSHA('SHA-256', 'TEXT');
+        sha.update(text);
+        return sha.getHash('HEX');
+    }
+    function auth(password) {
+        const url = hash(password);
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.send();
+        xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location = url;
+        } else {
+            const message = document.getElementById('message');
+            const input = document.getElementById('password');
+            message.innerHTML = 'Wrong password! Try again.';
+            input.value = '';
         }
-    
-        window.onload = fetchAttendanceData;
+        };
+        xhr.onerror = function () {
+        const message = document.getElementById('message');
+        message.innerHTML = 'Sorry, ERROR !';
+        };
+    }
+    const form = document.getElementById('form');
+    form.addEventListener('submit', function (event) {
+        const password = document.getElementById('password').value;
+        auth(password);
+        event.preventDefault();
+    });
     </script>
-    
 </body>
 </html>
