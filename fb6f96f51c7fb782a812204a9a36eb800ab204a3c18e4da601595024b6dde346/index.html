@@ -28,50 +28,80 @@
                 const attendanceDataContainer = document.getElementById("attendance-data");
                 attendanceDataContainer.innerHTML = ''; // 既存のデータをリセット
 
+                // グループごとのデータを格納するオブジェクト
+                const groupedData = {};
+
+                // データをグループごとに分類
                 data.forEach(item => {
                     if (item.ttl && now > item.ttl) {
                         item.status = "未登録";
                     }
 
-                    const card = document.createElement("div");
-                    card.className = "attendance-card";
+                    // グループ名がない場合は 'なし' として扱う
+                    const groupName = item.group_name || 'なし';
 
-                    // アイコンがあれば表示、なければローカルのデフォルト画像を設定
-                    const icon = item.icon || 'images/default-icon.png';
-                    const img = document.createElement("img");
-                    img.src = icon;
-                    card.appendChild(img);
+                    if (!groupedData[groupName]) {
+                        groupedData[groupName] = [];
+                    }
 
-                    // 名前を表示
-                    const name = document.createElement("div");
-                    name.className = "name";
-                    name.textContent = item.name;
-                    card.appendChild(name);
+                    groupedData[groupName].push(item);
+                });
 
-                    // グループ名を表示
-                    const group = document.createElement("div");
-                    group.className = "group";
-                    group.textContent = item.group_name || '　';
-                    card.appendChild(group);
+                // グループごとにセクションを作成
+                Object.keys(groupedData).forEach(groupName => {
+                    const groupSection = document.createElement("div");
+                    groupSection.className = "group-section";
 
-                    // 状態をタグとして表示
-                    const statusContainer = document.createElement("div");
-                    statusContainer.className = "status";
+                    const groupTitle = document.createElement("h2");
+                    groupTitle.textContent = groupName === 'なし' ? 'グループなし' : groupName;
+                    groupSection.appendChild(groupTitle);
 
-                    // 状態をタグ形式で表示
-                    const statuses = item.status || [];
-                    statuses.forEach(status => {
-                        const statusTag = document.createElement("span");
-                        statusTag.className = "status-tag";
-                        statusTag.textContent = status;
-                        statusContainer.appendChild(statusTag);
+                    // グループ内の各社員カードを追加
+                    groupedData[groupName].forEach(item => {
+                        const card = document.createElement("div");
+                        card.className = "attendance-card";
+
+                        // アイコンがあれば表示、なければローカルのデフォルト画像を設定
+                        const icon = item.icon || 'images/default-icon.png';
+                        const img = document.createElement("img");
+                        img.src = icon;
+                        card.appendChild(img);
+
+                        // 名前を表示
+                        const name = document.createElement("div");
+                        name.className = "name";
+                        name.textContent = item.name;
+                        card.appendChild(name);
+
+                        // グループ名を表示
+                        const group = document.createElement("div");
+                        group.className = "group";
+                        group.textContent = item.group_name || '　';
+                        card.appendChild(group);
+
+                        // 状態をタグとして表示
+                        const statusContainer = document.createElement("div");
+                        statusContainer.className = "status";
+
+                        // 状態をタグ形式で表示
+                        const statuses = item.status || [];
+                        statuses.forEach(status => {
+                            const statusTag = document.createElement("span");
+                            statusTag.className = "status-tag";
+                            statusTag.textContent = status;
+                            statusContainer.appendChild(statusTag);
+                        });
+
+                        card.appendChild(statusContainer);
+
+                        // カードをグループセクションに追加
+                        groupSection.appendChild(card);
                     });
 
-                    card.appendChild(statusContainer);
-
-                    // カードをデータコンテナに追加
-                    attendanceDataContainer.appendChild(card);
+                    // グループセクションをデータコンテナに追加
+                    attendanceDataContainer.appendChild(groupSection);
                 });
+
             } catch (error) {
                 document.getElementById("loading").style.display = 'none';
                 document.getElementById("attendance-data").innerHTML = `<p class="error">${error.message}</p>`;
