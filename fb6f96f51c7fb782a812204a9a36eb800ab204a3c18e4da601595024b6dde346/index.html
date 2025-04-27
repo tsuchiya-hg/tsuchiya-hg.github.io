@@ -25,34 +25,53 @@
                 document.getElementById("loading").style.display = 'none';
     
                 const now = Date.now() / 1000;
-                const table = document.createElement("table");
-                table.className = "attendance-table";
-    
-                const headerRow = document.createElement("tr");
-                headerRow.innerHTML = `
-                    <th>社員ID</th>
-                    <th>名前</th>
-                    <th>出席状況</th>
-                `;
-                table.appendChild(headerRow);
-    
+                const attendanceDataContainer = document.getElementById("attendance-data");
+                attendanceDataContainer.innerHTML = ''; // 既存のデータをリセット
+
                 data.forEach(item => {
                     if (item.ttl && now > item.ttl) {
-                        item.status = "未出社";
+                        item.status = "未登録";
                     }
-    
-                    const statusClass = item.status === "出勤" ? "status-on" : "status-off";
-    
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${item.employee_id}</td>
-                        <td>${item.name}</td>
-                        <td class="${statusClass}">${item.status}</td>
-                    `;
-                    table.appendChild(row);
+
+                    const card = document.createElement("div");
+                    card.className = "attendance-card";
+
+                    // アイコンがあれば表示
+                    const icon = item.icon || 'https://via.placeholder.com/60'; // アイコンがない場合のデフォルト画像
+                    const img = document.createElement("img");
+                    img.src = icon;
+                    card.appendChild(img);
+
+                    // 名前を表示
+                    const name = document.createElement("div");
+                    name.className = "name";
+                    name.textContent = item.name;
+                    card.appendChild(name);
+
+                    // グループ名を表示
+                    const group = document.createElement("div");
+                    group.className = "group";
+                    group.textContent = item.group_name || 'グループなし';
+                    card.appendChild(group);
+
+                    // 状態をタグとして表示
+                    const statusContainer = document.createElement("div");
+                    statusContainer.className = "status";
+
+                    // 状態をタグ形式で表示
+                    const statuses = item.status || [];
+                    statuses.forEach(status => {
+                        const statusTag = document.createElement("span");
+                        statusTag.className = "status-tag";
+                        statusTag.textContent = status;
+                        statusContainer.appendChild(statusTag);
+                    });
+
+                    card.appendChild(statusContainer);
+
+                    // カードをデータコンテナに追加
+                    attendanceDataContainer.appendChild(card);
                 });
-    
-                document.getElementById("attendance-data").appendChild(table);
             } catch (error) {
                 document.getElementById("loading").style.display = 'none';
                 document.getElementById("attendance-data").innerHTML = `<p class="error">${error.message}</p>`;
@@ -61,6 +80,5 @@
     
         window.onload = fetchAttendanceData;
     </script>
-    
 </body>
 </html>
