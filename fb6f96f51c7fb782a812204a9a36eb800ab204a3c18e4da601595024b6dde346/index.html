@@ -48,11 +48,13 @@
                     name.textContent = item.name;
                     card.appendChild(name);
 
-                    // グループ名を表示
-                    const group = document.createElement("div");
-                    group.className = "group";
-                    group.textContent = item.group_name || '';
-                    card.appendChild(group);
+                    // グループ名があれば表示
+                    if (item.group_name) {
+                        const group = document.createElement("div");
+                        group.className = "group";
+                        group.textContent = item.group_name;
+                        card.appendChild(group);
+                    }
 
                     // 状態をタグとして表示
                     const statusContainer = document.createElement("div");
