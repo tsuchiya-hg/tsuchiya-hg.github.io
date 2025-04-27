@@ -36,8 +36,8 @@
                     const card = document.createElement("div");
                     card.className = "attendance-card";
 
-                    // アイコンがあれば表示
-                    const icon = item.icon || 'https://via.placeholder.com/60'; // アイコンがない場合のデフォルト画像
+                    // アイコンがあれば表示、なければローカルのデフォルト画像を設定
+                    const icon = item.icon || 'images/default-icon.png';
                     const img = document.createElement("img");
                     img.src = icon;
                     card.appendChild(img);
@@ -51,7 +51,7 @@
                     // グループ名を表示
                     const group = document.createElement("div");
                     group.className = "group";
-                    group.textContent = item.group_name || 'グループなし';
+                    group.textContent = item.group_name || '';
                     card.appendChild(group);
 
                     // 状態をタグとして表示
