@@ -23,6 +23,12 @@
     
                 const data = await response.json();
                 document.getElementById("loading").style.display = 'none';
+
+                // データが空の場合
+                if (data.length === 0) {
+                    document.getElementById("attendance-data").innerHTML = '<p class="no-data">表示するデータがありません。</p>';
+                    return;
+                }
     
                 const now = Date.now() / 1000;
                 const attendanceDataContainer = document.getElementById("attendance-data");

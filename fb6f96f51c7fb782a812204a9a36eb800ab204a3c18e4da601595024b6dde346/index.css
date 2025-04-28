@@ -75,3 +75,10 @@ h1 {
     color: red;
     text-align: center;
 }
+
+.no-data {
+    font-size: 1.2em;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
