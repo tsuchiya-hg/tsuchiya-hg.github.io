@@ -16,13 +16,12 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
-    margin: 10px;
-    display: inline-block;
-    width: 100%; /* デフォルトでは100%（親コンテナに合わせる） */
+    width: 100%;
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
+    display: block;
 }
 
 .attendance-card img {
@@ -117,36 +116,47 @@ h1 {
 }
 
 /* レスポンシブデザイン */
-
-/* スマホ（767px以下）：2列表示 */
+/* モバイル：2列 */
 @media (max-width: 767px) {
-    .attendance-card {
-        width: 48%;
-        margin: 10px 1%;
-    }
-}
-
-/* タブレット（768px〜1024px）：3列表示 */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .attendance-card {
-        width: 30%;
-        margin: 10px 1.5%;
-    }
-}
-
-@media (min-width: 1024px) {
     #attendance-data {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly; 
-        row-gap: 20px;
-        column-gap: 0px;
-        padding: 0 10px;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .attendance-card {
+        width: 48%;
+    }
+}
+
+/* タブレット：3列 */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #attendance-data {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .attendance-card {
+        width: 30%;
+    }
+}
+
+/* PC：置けるだけ等間隔 */
+@media (min-width: 1025px) {
+    #attendance-data {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 20px;
+        padding: 0 20px;
     }
 
     .attendance-card {
         width: 290px;
-        margin: 0;
     }
 }
+
 
