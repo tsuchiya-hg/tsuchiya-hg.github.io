@@ -62,15 +62,14 @@ h1 {
 
 /* 各ステータスクラスの色 */
 .status-tag {
-    padding: 6px 12px; 
+    padding: 3px 12px; 
     border-radius: 16px;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-weight: bold;
     margin: 4px 4px 0 0;
     display: inline-block;
     color: white;
 }
-
 
 /* 各カテゴリの背景色 */
 .status-offline {
