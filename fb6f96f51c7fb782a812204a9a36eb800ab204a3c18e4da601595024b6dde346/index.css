@@ -134,18 +134,19 @@ h1 {
     }
 }
 
-/* PC（1024px以上）：横並びで必要なだけカードを表示 */
 @media (min-width: 1024px) {
     #attendance-data {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly; 
-        gap: 20px 10px;
+        row-gap: 20px;
+        column-gap: 0px;
+        padding: 0 10px;
     }
 
     .attendance-card {
         width: 290px;
-        margin: 10px 0;
+        margin: 0;
     }
 }
 
