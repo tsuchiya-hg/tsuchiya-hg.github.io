@@ -85,11 +85,11 @@ h1 {
 }
 
 .status-online {
-    background-color: #5AD6BD; /* 緑 */
+    background-color: #4caf50; /* 緑 */
 }
 
 .status-fulldayoff {
-    background-color: #469DCF; /* 青 */
+    background-color: #2293d4; /* 青 */
 }
 
 .status-amoff {
