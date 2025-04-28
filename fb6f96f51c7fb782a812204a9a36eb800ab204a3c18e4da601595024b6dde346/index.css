@@ -119,7 +119,7 @@ h1 {
 /* レスポンシブデザイン */
 
 /* スマホ（767px以下）：2列表示 */
-@media (max-width: 767px) {
+@media (max-width: 560px) {
     .attendance-card {
         width: 48%; /* 2枚並べるための幅設定 */
         margin: 10px 1%; /* 左右のマージンを少し調整 */
@@ -127,7 +127,7 @@ h1 {
 }
 
 /* タブレット（768px〜1024px）：3列表示 */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 560px) and (max-width: 830px) {
     .attendance-card {
         width: 30%; /* 3枚並べるための幅設定 */
         margin: 10px 1.5%; /* 左右のマージンを少し調整 */
@@ -135,7 +135,7 @@ h1 {
 }
 
 /* PC（1024px以上）：横並びで必要なだけカードを表示 */
-@media (min-width: 1024px) {
+@media (min-width: 830px) {
     /* attendance-data コンテナの設定 */
     #attendance-data {
         display: flex;
@@ -145,7 +145,7 @@ h1 {
     }
 
     .attendance-card {
-        width: 290px; /* 1行に最大6枚並べる */
+        width: 220px; /* 1行に最大6枚並べる */
         margin: 10px; /* 左右に少し余白 */
     }
 }
