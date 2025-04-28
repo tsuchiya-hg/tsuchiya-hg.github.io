@@ -16,12 +16,13 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
-    width: 100%;
+    margin: 10px;
+    display: inline-block;
+    width: 100%; /* デフォルトでは100%（親コンテナに合わせる） */
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
-    display: block;
 }
 
 .attendance-card img {
@@ -116,47 +117,27 @@ h1 {
 }
 
 /* レスポンシブデザイン */
-/* モバイル：2列 */
+
+/* スマホ（767px以下）：2列表示 */
 @media (max-width: 767px) {
-    #attendance-data {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
-    }
-
     .attendance-card {
-        width: 48%;
+        width: 48%; /* 2枚並べるための幅設定 */
+        margin: 10px 1%; /* 左右のマージンを少し調整 */
     }
 }
 
-/* タブレット：3列 */
+/* タブレット（768px〜1024px）：3列表示 */
 @media (min-width: 768px) and (max-width: 1024px) {
-    #attendance-data {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 15px;
-    }
-
     .attendance-card {
-        width: 30%;
+        width: 30%; /* 3枚並べるための幅設定 */
+        margin: 10px 1.5%; /* 左右のマージンを少し調整 */
     }
 }
 
-/* PC：置けるだけ等間隔 */
-@media (min-width: 1025px) {
-    #attendance-data {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        gap: 20px;
-        padding: 0 20px;
-    }
-
+/* PC（1024px以上）：横並びで必要なだけカードを表示 */
+@media (min-width: 1024px) {
     .attendance-card {
-        width: 290px;
+        width: 290px; /* 1行に最大6枚並べる */
+        margin: 10px; /* 左右に少し余白 */
     }
 }
-
-
