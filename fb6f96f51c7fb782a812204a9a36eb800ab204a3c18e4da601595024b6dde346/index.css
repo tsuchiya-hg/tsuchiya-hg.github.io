@@ -52,16 +52,6 @@ h1 {
     display: inline-block;
 }
 
-.status-on {
-    background-color: #4caf50;
-    color: white;
-}
-
-.status-off {
-    background-color: #f44336;
-    color: white;
-}
-
 .status-tag {
     padding: 2px 8px;
     border-radius: 12px;
@@ -72,12 +62,15 @@ h1 {
 
 /* 各ステータスクラスの色 */
 .status-tag {
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    margin-right: 5px;
+    padding: 6px 12px; 
+    border-radius: 16px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin: 4px 4px 0 0;
+    display: inline-block;
     color: white;
 }
+
 
 /* 各カテゴリの背景色 */
 .status-offline {
