@@ -91,10 +91,9 @@
                         statusContainer.className = "status";
 
                         // 状態をタグ形式で表示
-                        const statuses = item.status || [];
                         statuses.forEach(status => {
                             const statusTag = document.createElement("span");
-                            statusTag.className = "status-tag";
+                            statusTag.className = "status-tag " + getStatusClass(status);
                             statusTag.textContent = status;
                             statusContainer.appendChild(statusTag);
                         });
@@ -113,6 +112,22 @@
                 document.getElementById("loading").style.display = 'none';
                 document.getElementById("attendance-data").innerHTML = `<p class="error">${error.message}</p>`;
             }
+        }
+
+        function getStatusClass(status) {
+            const offStatuses = ["未登録", "退勤"];
+            const onStatuses = ["出勤"];
+            const fullDayOff = ["公休", "有休", "夏季特休", "振替休暇", "代休", "スキル休暇", "慶弔休暇", "看護休暇", "産休", "育休", "裁判休暇"];
+            const amOff = ["振替休暇AM", "代休AM", "スキル休暇AM", "看護休暇AM", "裁判休暇AM"];
+            const pmOff = ["振替休暇PM", "代休PM", "スキル休暇PM", "看護休暇PM", "裁判休暇PM"];
+
+            if (offStatuses.includes(status)) return "status-offline";
+            if (onStatuses.includes(status)) return "status-online";
+            if (fullDayOff.includes(status)) return "status-fulldayoff";
+            if (amOff.includes(status)) return "status-amoff";
+            if (pmOff.includes(status)) return "status-pmoff";
+
+            return "status-unknown"; // 万が一未分類でもスタイルが適用されるように
         }
     
         window.onload = fetchAttendanceData;
