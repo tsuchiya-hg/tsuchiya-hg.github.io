@@ -18,7 +18,7 @@ h1 {
     padding: 20px;
     margin: 10px;
     display: inline-block;
-    width: 250px;
+    width: 100%; /* デフォルトでは100%（親コンテナに合わせる） */
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -53,15 +53,6 @@ h1 {
 }
 
 .status-tag {
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    margin-right: 5px;
-    color: white;
-}
-
-/* 各ステータスクラスの色 */
-.status-tag {
     padding: 3px 12px; 
     border-radius: 16px;
     font-size: 0.8rem;
@@ -71,7 +62,7 @@ h1 {
     color: white;
 }
 
-/* 各カテゴリの背景色 */
+/* 各ステータスクラスの色 */
 .status-offline {
     background-color: #9e9e9e; /* 灰色 */
 }
@@ -113,3 +104,17 @@ h1 {
     text-align: center;
     margin-top: 20px;
 }
+
+/* レスポンシブデザイン */
+@media (max-width: 767px) {
+    /* スマホ画面: 1行に2枚表示 */
+    .attendance-card {
+        width: 48%; /* 親要素の48%の幅で、2枚並べる */
+        margin: 10px 1%; /* 左右に少し余白 */
+    }
+}
+
+@media (max-width: 1024px) {
+    /* タブレット画面: 1行に3枚表示 */
+    .attendance-card {
+        width: 30%; /* 親要素の30%の幅で*
