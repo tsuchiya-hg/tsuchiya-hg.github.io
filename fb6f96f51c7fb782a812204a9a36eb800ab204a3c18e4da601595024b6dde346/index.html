@@ -39,7 +39,8 @@
 
                 // データをグループごとに分類
                 data.forEach(item => {
-                    if (item.ttl && now > item.ttl) {
+                    // 有効期限切れ、ステータスが空の場合は未登録にする
+                    if ((item.ttl && now > item.ttl) || !item.status || item.status.length === 0) {
                         item.status = ["未登録"];
                     }
 
