@@ -91,6 +91,7 @@
                         statusContainer.className = "status";
 
                         // 状態をタグ形式で表示
+                        const statuses = item.status || [];
                         statuses.forEach(status => {
                             const statusTag = document.createElement("span");
                             statusTag.className = "status-tag " + getStatusClass(status);
@@ -129,7 +130,7 @@
 
             return "status-unknown"; // 万が一未分類でもスタイルが適用されるように
         }
-    
+
         window.onload = fetchAttendanceData;
     </script>
 </body>
