@@ -136,8 +136,17 @@ h1 {
 
 /* PC（1024px以上）：横並びで必要なだけカードを表示 */
 @media (min-width: 1024px) {
+    /* attendance-data コンテナの設定 */
+    #attendance-data {
+        display: flex;
+        flex-wrap: wrap; /* 横に並べつつ、折り返しを許可 */
+        justify-content: flex-start; /* 左寄せにする */
+        gap: 10px; /* カード間の隙間を設定 */
+    }
+
     .attendance-card {
-        width: calc(100% / 6); /* 1行に最大6枚並べる */
+        width: 290px; /* 1行に最大6枚並べる */
         margin: 10px; /* 左右に少し余白 */
     }
 }
+
