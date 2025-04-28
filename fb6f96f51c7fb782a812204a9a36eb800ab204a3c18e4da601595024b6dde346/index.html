@@ -34,7 +34,7 @@
                 // データをグループごとに分類
                 data.forEach(item => {
                     if (item.ttl && now > item.ttl) {
-                        item.status = "未登録";
+                        item.status = ["未登録"];
                     }
 
                     // グループ名がない場合は 'なし' として扱う
